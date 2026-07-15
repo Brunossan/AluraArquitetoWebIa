@@ -1,10 +1,10 @@
 :root {
-  --color-blue-universe: #2A001A;
-  --color-deep-blue: #5A0036;
-  --color-tech-blue: #B00868;
-  --color-dev-blue: #FF2A95;
-  --color-new-black: #0D0D0D;
-  --color-white-snow: #F4F5F6;
+  --bg-gradient-outer: #2A001A;
+  --bg-gradient-center: #5A0036;
+  --accent-static: #B00868;
+  --accent-interactive: #FF2A95;
+  --theme-main-dark: #0D0D0D;
+  --theme-main-light: #F4F5F6;
 }
 
 * {
@@ -14,9 +14,9 @@
 }
 
 body {
-  background-color: var(--color-new-black);
-  background-image: radial-gradient(circle at center, var(--color-deep-blue) 0%, var(--color-blue-universe) 60%, var(--color-new-black) 100%);
-  color: var(--color-new-black);
+  background-color: var(--theme-main-dark);
+  background-image: radial-gradient(circle at center, var(--bg-gradient-center) 0%, var(--bg-gradient-outer) 60%, var(--theme-main-dark) 100%);
+  color: var(--theme-main-dark);
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   display: flex;
@@ -33,7 +33,7 @@ body {
   right: 20px;
   background: rgba(31, 83, 229, 0.15);
   border: 1px solid rgba(31, 83, 229, 0.4);
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -46,8 +46,8 @@ body {
 }
 
 .sound-btn:hover {
-  background: var(--color-dev-blue);
-  border-color: var(--color-white-snow);
+  background: var(--accent-interactive);
+  border-color: var(--theme-main-light);
   box-shadow: 0 0 15px rgba(31, 83, 229, 0.6);
   transform: scale(1.05);
 }
@@ -63,7 +63,7 @@ body {
   transform: translateY(-50%);
   background: rgba(1, 12, 83, 0.4);
   border: 1px solid rgba(31, 83, 229, 0.3);
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -78,8 +78,8 @@ body {
 
 .nav-btn:hover {
   opacity: 1;
-  background: var(--color-deep-blue);
-  border-color: var(--color-dev-blue);
+  background: var(--bg-gradient-center);
+  border-color: var(--accent-interactive);
   box-shadow: 0 0 20px rgba(31, 83, 229, 0.5);
   transform: translateY(-50%) scale(1.05);
 }
@@ -115,7 +115,7 @@ body {
 .page {
   width: 550px;
   height: 800px;
-  background-color: var(--color-white-snow);
+  background-color: var(--theme-main-light);
   overflow: hidden;
   cursor: grab; /* Mão aberta indicando que a página pode ser "agarrada" */
   user-select: none; /* Impede seleção de texto ao arrastar a página */
@@ -186,21 +186,21 @@ body.dragging * {
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   letter-spacing: 1.5px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
-.badge-ia { background-color: var(--color-tech-blue); }
-.badge-python { background-color: var(--color-dev-blue); }
-.badge-db { background-color: var(--color-deep-blue); }
-.badge-os { background-color: var(--color-blue-universe); }
-.badge-brasil { background-color: var(--color-dev-blue); }
+.badge-ia { background-color: var(--accent-static); }
+.badge-python { background-color: var(--accent-interactive); }
+.badge-db { background-color: var(--bg-gradient-center); }
+.badge-os { background-color: var(--bg-gradient-outer); }
+.badge-brasil { background-color: var(--accent-interactive); }
 
 .page-title {
   font-family: 'Outfit', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: var(--color-deep-blue);
+  color: var(--bg-gradient-center);
 }
 
 /* Stickers Grid Layout */
@@ -230,7 +230,7 @@ body.dragging * {
 
 .sticker-slot:hover {
   background-color: rgba(31, 83, 229, 0.05);
-  border-color: var(--color-dev-blue);
+  border-color: var(--accent-interactive);
   box-shadow: inset 0 0 10px rgba(31, 83, 229, 0.1);
 }
 
@@ -239,7 +239,7 @@ body.dragging * {
   justify-self: center;
   width: 65%;
   min-height: 165px;
-  border-color: var(--color-dev-blue);
+  border-color: var(--accent-interactive);
   background-color: rgba(31, 83, 229, 0.02);
 }
 
@@ -247,7 +247,7 @@ body.dragging * {
   font-family: 'Outfit', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: var(--color-tech-blue);
+  color: var(--accent-static);
   background: rgba(4, 41, 188, 0.08);
   width: 48px;
   height: 48px;
@@ -260,15 +260,15 @@ body.dragging * {
 }
 
 .sticker-slot:hover .slot-number {
-  background: var(--color-dev-blue);
-  color: var(--color-white-snow);
+  background: var(--accent-interactive);
+  color: var(--theme-main-light);
   box-shadow: 0 0 10px rgba(31, 83, 229, 0.3);
 }
 
 .slot-name {
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--color-new-black);
+  color: var(--theme-main-dark);
   margin-bottom: 2px;
 }
 
@@ -340,11 +340,11 @@ body.dragging * {
 /* Slot quando a figurinha está colada (imagem carregou com sucesso) */
 .slot-preenchido {
   border-style: solid !important;
-  border-color: var(--color-dev-blue) !important;
+  border-color: var(--accent-interactive) !important;
 }
 
 .slot-preenchido:hover {
-  border-color: var(--color-tech-blue) !important;
+  border-color: var(--accent-static) !important;
   box-shadow: 0 4px 16px rgba(31, 83, 229, 0.2) !important;
 }
 
@@ -363,7 +363,7 @@ body.dragging * {
 .page-cover {
   background-color: #070709;
   background-image: radial-gradient(circle at center, #0e1220 0%, #060608 100%);
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   border: 1px solid rgba(0, 240, 255, 0.2);
   box-shadow: inset 0 0 40px rgba(0, 240, 255, 0.12);
 }
@@ -418,7 +418,7 @@ body.dragging * {
 /* Glitch Typography Effect */
 .glitch {
   position: relative;
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
 }
 
 .glitch::before,
@@ -478,7 +478,7 @@ body.dragging * {
   font-size: 4rem;
   font-weight: 800;
   letter-spacing: 6px;
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   margin: 0;
   line-height: 1;
 }
@@ -626,7 +626,7 @@ body.dragging * {
 .art-logo {
   width: 32px;
   height: 32px;
-  stroke: var(--color-white-snow);
+  stroke: var(--theme-main-light);
   stroke-width: 2;
   fill: none;
 }
@@ -677,20 +677,20 @@ body.dragging * {
   margin-top: 25px;
   font-size: 0.8rem;
   letter-spacing: 2px;
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   opacity: 0.7;
 }
 
 .cover-footer {
   font-size: 0.75rem;
   letter-spacing: 2px;
-  color: var(--color-white-snow);
+  color: var(--theme-main-light);
   opacity: 0.5;
 }
 
 /* CREDITS PAGE CSS */
 .credits-content {
-  background-color: var(--color-white-snow);
+  background-color: var(--theme-main-light);
 }
 
 .credits-body {
@@ -704,7 +704,7 @@ body.dragging * {
 
 .info-box {
   background: rgba(4, 41, 188, 0.05);
-  border-left: 4px solid var(--color-tech-blue);
+  border-left: 4px solid var(--accent-static);
   padding: 20px;
   border-radius: 0 8px 8px 0;
   display: flex;
@@ -714,7 +714,7 @@ body.dragging * {
 
 .info-box h4 {
   font-family: 'Outfit', sans-serif;
-  color: var(--color-deep-blue);
+  color: var(--bg-gradient-center);
   font-size: 1.1rem;
 }
 
@@ -732,7 +732,7 @@ body.dragging * {
 
 .info-box li::before {
   content: "•";
-  color: var(--color-dev-blue);
+  color: var(--accent-interactive);
   font-weight: bold;
   font-size: 1.2rem;
   position: absolute;
@@ -742,17 +742,17 @@ body.dragging * {
 
 .credits-dedication {
   font-style: italic;
-  color: var(--color-deep-blue);
+  color: var(--bg-gradient-center);
   text-align: center;
   margin-top: 15px;
 }
 
 /* CONTRACAPA (Back Cover) CSS */
 .page-cover-back {
-  background-color: var(--color-blue-universe);
-  background-image: linear-gradient(225deg, var(--color-blue-universe) 0%, var(--color-new-black) 100%);
-  color: var(--color-white-snow);
-  border: 3px solid var(--color-dev-blue);
+  background-color: var(--bg-gradient-outer);
+  background-image: linear-gradient(225deg, var(--bg-gradient-outer) 0%, var(--theme-main-dark) 100%);
+  color: var(--theme-main-light);
+  border: 3px solid var(--accent-interactive);
   box-shadow: inset 0 0 50px rgba(31, 83, 229, 0.35);
 }
 
@@ -767,7 +767,7 @@ body.dragging * {
   font-family: 'Outfit', sans-serif;
   font-size: 2.2rem;
   letter-spacing: 4px;
-  background: linear-gradient(to right, #FFFFFF, var(--color-dev-blue));
+  background: linear-gradient(to right, #FFFFFF, var(--accent-interactive));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
