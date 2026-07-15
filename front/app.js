@@ -1,61 +1,105 @@
 // ===================================================
-// CONFIGURAÇÃO DA API
-// Quando o frontend for servido pelo FastAPI (Dia 3), a API está
-// no mesmo servidor — usamos uma URL relativa ou o endereço completo.
+// CONFIGURAÇÃO DA API E DADOS LOCAIS
 // ===================================================
 const API_BASE_URL = "http://localhost:8000";
 
+const LOCAL_FIGURINHAS = [
+    // Pág 1: Lavoisier (#01 a #05)
+    { id: 1, nome: "Antoine Lavoisier" },
+    { id: 2, nome: "Conservação das Massas" },
+    { id: 3, nome: "Descoberta do Oxigênio" },
+    { id: 4, nome: "Nomenclatura Química" },
+    { id: 5, nome: "Calorimetria" },
+    
+    // Pág 2: Marie Curie (#06 a #10)
+    { id: 6, nome: "Marie Curie" },
+    { id: 7, nome: "Teoria da Radioatividade" },
+    { id: 8, nome: "Descoberta do Rádio" },
+    { id: 9, nome: "Descoberta do Polônio" },
+    { id: 10, nome: "Petites Curies" },
+
+    // Pág 3: Mendeleev (#11 a #15)
+    { id: 11, nome: "Dmitri Mendeleev" },
+    { id: 12, nome: "Tabela Periódica" },
+    { id: 13, nome: "Previsão de Elementos" },
+    { id: 14, nome: "Lei Periódica" },
+    { id: 15, nome: "Estudo de Soluções" },
+
+    // Pág 4: John Dalton (#16 a #20)
+    { id: 16, nome: "John Dalton" },
+    { id: 17, nome: "Modelo Bola de Bilhar" },
+    { id: 18, nome: "Proporções Múltiplas" },
+    { id: 19, nome: "Estudo do Daltonismo" },
+    { id: 20, nome: "Pesos Atômicos" },
+
+    // Pág 5: Linus Pauling (#21 a #25)
+    { id: 21, nome: "Linus Pauling" },
+    { id: 22, nome: "Ligação Química" },
+    { id: 23, nome: "Eletronegatividade" },
+    { id: 24, nome: "Estrutura Alfa-Hélice" },
+    { id: 25, nome: "Medicina Ortomolecular" },
+
+    // Pág 6: Louis Pasteur (#26 a #30)
+    { id: 26, nome: "Louis Pasteur" },
+    { id: 27, nome: "Assimetria Molecular" },
+    { id: 28, nome: "Pasteurização" },
+    { id: 29, nome: "Vacina da Raiva" },
+    { id: 30, nome: "Refutação Espontânea" }
+];
+
+// Preenche os slots de imagem do álbum
+function preencherSlotsComDados(figurinhasArray, usarAPI = false) {
+    const porId = new Map(figurinhasArray.map(f => [f.id, f]));
+    const slots = document.querySelectorAll(".sticker-slot");
+
+    for (const slot of slots) {
+        const slotNumeroEl = slot.querySelector(".slot-number");
+        if (!slotNumeroEl) continue;
+
+        const id = parseInt(slotNumeroEl.textContent.replace("#", ""), 10);
+        if (!porId.has(id)) continue;
+
+        const figurinha = porId.get(id);
+
+        // Remove imagem anterior se existir
+        const imgExistente = slot.querySelector(".sticker-img");
+        if (imgExistente) imgExistente.remove();
+
+        // Só carrega a imagem se vier da API e possuir imagem_url
+        if (!usarAPI || !figurinha.imagem_url) continue;
+
+        const img = document.createElement("img");
+        img.src = `${API_BASE_URL}${figurinha.imagem_url}`;
+        img.alt = figurinha.nome;
+        img.className = "sticker-img";
+
+        img.onload = () => slot.classList.add("slot-preenchido");
+        img.onerror = () => {
+            console.warn(`Erro ao carregar figurinha: ${figurinha.nome}`);
+        };
+
+        slot.insertBefore(img, slot.firstChild);
+    }
+}
+
 // ===================================================
-// FUNÇÃO: Preenche os slots do álbum com imagens da API
-// Esta função é chamada após o álbum ser inicializado.
+// FUNÇÃO: Preenche os slots do álbum com imagens
 // ===================================================
 async function preencherFigurinhas() {
     try {
-        // 1. Busca as figurinhas disponíveis na API
+        // Tenta buscar da API
         const response = await fetch(`${API_BASE_URL}/figurinhas`);
 
         if (!response.ok) {
             throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
         }
 
-        // 2. Converte o JSON em array JavaScript
         const figurinhas = await response.json();
-
-        // 3. Cria um Map de id → figurinha para lookup rápido
-        //    Ex: 1 → { id: 1, nome: "Alan Turing", imagem_url: "/imgs/01-alan-turing.jpg" }
-        const porId = new Map(figurinhas.map(f => [f.id, f]));
-
-        // 4. Percorre todos os slots do HTML
-        const slots = document.querySelectorAll(".sticker-slot");
-
-        for (const slot of slots) {
-            const slotNumeroEl = slot.querySelector(".slot-number");
-            if (!slotNumeroEl) continue;
-
-            // Extrai o número do slot: "#01" → 1
-            const id = parseInt(slotNumeroEl.textContent.replace("#", ""), 10);
-
-            if (!porId.has(id)) continue;
-
-            // A figurinha existe: insere a imagem
-            const figurinha = porId.get(id);
-
-            const img = document.createElement("img");
-            img.src = `${API_BASE_URL}${figurinha.imagem_url}`;
-            img.alt = figurinha.nome;
-            img.className = "sticker-img";
-
-            img.onload = () => slot.classList.add("slot-preenchido");
-            img.onerror = () => console.warn(`Imagem não encontrada: ${figurinha.nome}`);
-
-            slot.insertBefore(img, slot.firstChild);
-        }
-
+        preencherSlotsComDados(figurinhas, true);
         console.log(`✅ ${figurinhas.length} figurinhas carregadas da API!`);
 
     } catch (erro) {
-        console.warn("⚠️  Não foi possível conectar à API do backend:", erro.message);
-        console.info("ℹ️  Inicie o servidor: cd backend/dia-3 && uvicorn main:app --reload");
+        console.warn("⚠️ Não foi possível conectar à API do backend. As figurinhas serão carregadas a partir do backend no futuro:", erro.message);
     }
 }
 
